@@ -56,14 +56,14 @@ describe('Car Service', () => {
 			expect(carCreated).to.be.deep.equal(carMockWithId);
 		});
 
-		it('Failure', async () => {
+		it('Fail', async () => {
 			try {
 				await carService.readOne(carMockWithId._id);
 			} catch (error:any) {
 				expect(error.message).to.be.deep.equal(ErrorTypes.EntityNotFound);
 			}
 		});
-    
+
     it('_id not found', async () => {
       try {
         await carModel.readOne('wrongNumber');
