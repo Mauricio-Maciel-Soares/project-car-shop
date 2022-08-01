@@ -1,7 +1,7 @@
 import express from 'express';
-import carRouter from './routes/carsRoutes';
-import errorHandler from './middlewares/error';
 import 'express-async-errors';
+import carRouter from './routes/carsRoutes';
+import errorHandler from './middlewares/errorHandler';
 
 const app = express();
 app.use(express.json());

@@ -16,6 +16,7 @@ route.post(
   isValidObject(carExtendsVehicleZodSchema),
   (req, res, _next) => carController.create(req, res),
 );
-route.get('/cars', (_req, res, _next) => carController.read(_req, res));
+route.get('/cars', (_req, res) => carController.read(_req, res));
+route.get('/cars/:id', (req, res) => carController.readOne(req, res));
 
 export default route;
