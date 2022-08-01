@@ -14,7 +14,7 @@ const carController = new CarController(carService);
 route.post(
   '/cars',
   isValidObject(carExtendsVehicleZodSchema),
-  carController.create,
+  (req, res, _next) => carController.create(req, res),
 );
 
 export default route;

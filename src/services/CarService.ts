@@ -10,10 +10,6 @@ class CarService implements IService<ICar> {
   }
 
   public async create(obj: ICar): Promise<ICar> {
-    // const parsed = carExtendsVehicleZodSchema.safeParse(obj);
-    // if (!parsed.success) {
-    //   throw parsed.error;
-    // }
     return this._car.create(obj);
   }
 }
