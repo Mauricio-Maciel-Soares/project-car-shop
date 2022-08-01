@@ -1,13 +1,13 @@
 import { z } from 'zod';
-import { IVehicle } from './IVehicle';
+import { vehicleZodSchema } from './IVehicle';
+import carZodSchema from '../schemas/carSchema';
 
-const carZodSchema = z.object({
-  doorsQty: z.number().int().min(2).max(4),
-  seatsQty: z.number().int().min(2).max(7),
-});
+// https://zod.dev/?id=extend
 
-type Car = z.infer<typeof carZodSchema>;
+const carExtendsVehicleZodSchema = carZodSchema.merge(vehicleZodSchema); 
+export type ICar = z.infer<typeof carExtendsVehicleZodSchema>;
 
-export { carZodSchema };
+export { carExtendsVehicleZodSchema };
 
-export interface ICar extends Car, IVehicle{}
+// type Car = z.infer<typeof carZodSchema>;
+// export { carZodSchema };
