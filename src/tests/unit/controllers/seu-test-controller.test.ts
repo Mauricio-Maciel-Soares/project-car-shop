@@ -1,22 +1,37 @@
-// template para criação dos testes de cobertura da camada de controller
+import * as sinon from 'sinon';
+import chai from 'chai';
+const { expect } = chai;
+import { carMock } from '../../mocks/carMock';
+import CarService from '../../../services/CarService';
+import CarModel from '../../../models/CarModel';
+import CarController from '../../../controllers/CarController';
+import { Request, Response } from 'express';
 
+describe('Car Controller', () => {
+  const car = new CarModel();
+  const carService = new CarService(car);
+  const carController = new CarController(carService);
+  const req = {} as Request; 
+  const res = {} as Response;
 
-// import * as sinon from 'sinon';
-// import chai from 'chai';
-// const { expect } = chai;
+  before(async () => {
+    sinon
+      .stub(carService, 'create').resolves(carMock);
 
-// describe('Sua descrição', () => {
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(res);
+  });
 
-//   before(async () => {
-//     sinon
-//       .stub()
-//       .resolves();
-//   });
+  after(()=>{
+    sinon.restore();
+  })
 
-//   after(()=>{
-//     sinon.restore();
-//   })
+  it('successfully created', async () => {
+    req.body = carMock;
 
-//   it('', async () => {});
+    await carController.create(req, res);
 
-// });
+    expect((res.status as sinon.SinonStub).calledWith(201)).to.be.true;
+    expect((res.json as sinon.SinonStub).calledWith(carMock)).to.be.true;
+  });
+});

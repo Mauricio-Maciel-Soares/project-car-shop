@@ -7,12 +7,12 @@ import CarService from '../../../services/CarService'
 import CarModel from '../../../models/CarModel'
 
 describe('Car Service', () => {
-  const car = new CarModel();
-  const carService = new CarService(car);
+  const carModel = new CarModel();
+  const carService = new CarService(carModel);
 
   before(async () => {
     sinon
-      .stub(Model, 'create').resolves(carMockWithId);
+      .stub(carModel, 'create').resolves(carMockWithId);
   });
 
   after(()=>{
