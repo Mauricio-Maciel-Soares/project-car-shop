@@ -9,8 +9,8 @@ describe('Car Model', () => {
   const carModel = new CarModel();
 
   before(async () => {
-    sinon
-      .stub(Model, 'create').resolves(carMockWithId);
+    sinon.stub(Model, 'create').resolves(carMockWithId);
+    sinon.stub(Model, 'findOne').resolves(carMockWithId);
   });
 
   after(()=>{
@@ -20,5 +20,10 @@ describe('Car Model', () => {
   it('successfully created', async () => {
     const newCar = await carModel.create(carMock);
     expect(newCar).to.be.deep.equal(carMockWithId);
+  });
+
+  it('successfully found', async () => {
+    const frameFound = await carModel.readOne('62cf1fc6498565d94eba52cd');
+    expect(frameFound).to.be.deep.equal(carMockWithId);
   });
 });
